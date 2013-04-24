@@ -174,8 +174,9 @@ def makeList(page):
 		thickness = pageList[pageList.index(thickness_l)+1]
 	        thickness = re.sub('<[^>]+?>', '', thickness)
 		k = thickness.split("(")
-		if len(k) == 3:	
+		if len(k) == 2:	
 			k = k[0].split("x")[2]
+			k = re.findall("(.+\smm)",k)[0]
 			k = k[:-3]
 			thickness = float(k)
 	 	else:	
@@ -185,8 +186,12 @@ def makeList(page):
 
 	if talktime == ['']:	
 		talktime = 'N/A'
-
-	rs = r = {"ModelNumber":model,"Manufacturer":manufacturer,"OperatingSystem":os_type,"Talktime":talktime,"Touch":touch,"SecondaryCamera":secondary_camera,"GPS":gps,"Thickness":thickness}
+	
+	model = model.lower()
+	manufacturer = manufacturer.lower()
+	os_type = os_type.lower()
+	
+	rs = r = {"model_number":model,"manufacturer":manufacturer,"operating_system":os_type,"talktime":talktime,"touch":touch,"secondary_camera":secondary_camera,"gps":gps,"thickness":thickness}
 	return [rs]
 
 def printrs(rs):

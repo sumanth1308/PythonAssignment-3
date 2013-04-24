@@ -38,8 +38,6 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
                 s.send_header("Content-type", "text/html")
                 s.end_headers()
                 s.wfile.write("ERROR 404: File not found, "+s.path+" doesn't exist on this server")
-	    # If someone went to "http://something.somewhere.net/foo/bar/",
-        # then s.path equals "/foo/bar/".
     def do_POST(self):
         # Parse the form data posted
         form_dictionary = {}
@@ -59,9 +57,6 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         for field in form.keys():
             field_item = form[field]
             form_dictionary[field] = form[field].value
-        f = open("result.html","r")
-        self.wfile.write(f.read())
-        f.close()
         try:
             k = list(form_dictionary["query"])
 	    flag = 1
@@ -86,37 +81,17 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
                 #print type(query)
                 result = self.getResult(query)
                 if result != []:
-                    self.wfile.write("<table>")
-                    for i in result:
-                        self.wfile.write("<tr>")
-                        for key in i:
-                            if key != "_id":
-                                self.wfile.write("<th>"+str(key)+"<th>")
-                        self.wfile.write("</tr>")
-                        break
-                    for i in result:
-                        self.wfile.write("<tr>")
-                        for key,values in i.iteritems():
-                            if key != "_id":
-                                self.wfile.write("<td>"+str(values)+"<td>")
-                        self.wfile.write("</tr>")
-                    self.wfile.write("</table></body><footer>")
-                    self.wfile.write("<hr/>")
-                    self.wfile.write("<p align=\"right\">&copy; 2013. All rights reserved. <br/>Developers - Sumanth, Dixit, Pradeep<br/></p>")
-                    self.wfile.write("</footer></html>")
+     		    for i in result:
+			self.wfile.write(str(i)+'\n')
                 else:
-                    self.wfile.write("<p style=\"font-size:14px\">"+"Null set"+"</p>")
-                    self.wfile.write("</body></html>")
+                    self.wfile.write("Null set"+'\n')
 
             else:
-                self.wfile.write("<p style=\"font-size:14px\">"+"Empty query"+"</p>")
-                self.wfile.write("</body></html>")
+                self.wfile.write("Empty query"+'\n')
         except KeyError as e:
-                self.wfile.write("<p style=\"font-size:14px\">"+"Empty query"+"</p>")
-                self.wfile.write("</body></html>")                
+                self.wfile.write("Empty query"+'\n')                
         except SyntaxError as e:
-            self.wfile.write("Syntax error in query")
-            self.wfile.write("</body></html>")
+            self.wfile.write("Syntax error in query"+'\n')
         return
 
     def getResult(self,query):

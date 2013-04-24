@@ -23,4 +23,4 @@ b. Important notes:
 	7. The schema used is the same as in Assignment 1
 	8. The server by default runs on port 8800
 	9. The server implements a rest interface since any post request with a field named-"query" containing the query can gain access to the service
-
+	10. The query set is returned as a json object

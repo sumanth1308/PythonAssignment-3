@@ -1,19 +1,61 @@
 <!DOCTYPE html>
 <html>
-	<title> Mobile devices query engine</title>
-	<body>
-	<center>
-	<br/><br/><br/><br/><br/><br/><br/>	
-	<form method="post">
-		<label style = "text-decoration:underline; font-weight:bold;  font-family: tahoma;">Query here</label>
-		<br/>
-		<br/>
-		<input type = "text" name = "query" value = "" size = "40"/>
-		<br/>
-		<input type = "submit" name = "mine" value = "submit"/>		
-	</form>
-	</center>
+    <head>
+        <title> Index Page</title>
+        <style>
+            body {background-color:#054950;}
+        </style>
+        <script language="javascript">
+            <!--
 
-	
-</body>
+                var state = 'none';
+                function showhide(layer_ref) {
+
+                    if (state == 'block') {
+                        state = 'none';
+                    }
+                    else {
+                        state = 'block';
+                    }
+                    if (document.all) { //IS IE 4 or 5 (or 6 beta)
+                        eval( "document.all." + layer_ref + ".style.display = state");
+                    }
+                    if (document.layers) { //IS NETSCAPE 4 or below
+                        document.layers[layer_ref].display = state;
+                    }
+                    if (document.getElementById &&!document.all) {
+                        hza = document.getElementById(layer_ref);
+                        hza.style.display = state;
+                    }
+                }
+            //-->
+        </script> 
+    </head>
+    <body>
+        <form method="post">
+            <h1><p style="font-family:verdana;color:white;background-color:#56BAEC;text-align:center;"><u>DEVICE DATABASE</u></p> </h1>
+            <br/>
+            <div align = "center" style="font-family:verdana;color:white;background-color:#56BAEC;">
+                <h3><span onclick="showhide('que');">Query here</span></h3>
+                <div id="que" style="display: none;">
+                    <input type = "text" name = "query" value = "" size = "50"/>
+                <input type = "submit" name = "mine" value = "submit"/>
+                </div>
+                </form>
+                <h3><span onclick="showhide('exmp');">Example Queries</span></h3>
+                <div id="exmp" style="display: none;">
+                <ul>
+                <li>{"Manufacturer":"Nokia","talktime":{$gte:10}}</li>
+                <li>{"talktime":{$lte:10}}</li>
+                </ul>
+                </div>
+<!--                 <input type = "submit" name = "mine" value = "submit"/> -->
+<!--             </form> -->
+            </div>
+        
+        <footer>
+        <hr/>
+        <p align="right">&copy; 2013. All rights reserved. <br/>Developers - Sumanth, Dixit, Pradeep<br/></p>
+        </footer>
+    </body>
 </html>
